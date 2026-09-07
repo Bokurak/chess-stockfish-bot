@@ -13,8 +13,8 @@ def quick_demo():
     print("🚀 ШАХМАТНЫЙ БОТ STOCKFISH - БЫСТРЫЙ СТАРТ")
     print("="*60 + "\n")
     
-    print("⏳ Инициализирую бота со Stockfish (ELO 3200)...")
-    bot = ChessStockfishBot(elo=3200, time_limit=2000)
+    print("⏳ Инициализирую бота со Stockfish...")
+    bot = ChessStockfishBot(time_limit=2000)
     print("✅ Бот готов!\n")
     
     # Демонстрация 1: Анализ стартовой позиции
@@ -33,13 +33,15 @@ def quick_demo():
         print(f"✅ Рекомендуемый ход: {best_move}")
     
     print("\n" + "="*60)
-    print("✨ БОТ ГОТОВ К ИСПОЛЬЗОВАНИЮ!")
+    print("✨ ВСЕ СИСТЕМЫ РАБОТАЮТ!")
     print("="*60)
     print("""
-    ✅ Все системы работают корректно
     ✅ Stockfish инициализирован
     ✅ Анализ позиций работает
     ✅ Расчет ходов работает
+    
+    Теперь можете запустить:
+    python chess_bot.py
     """)
     print("="*60 + "\n")
 
@@ -51,5 +53,5 @@ if __name__ == "__main__":
         print("\n\n⏹️  Отменено пользователем")
     except Exception as e:
         print(f"\n\n❌ Ошибка: {e}")
-        print("\n📝 Убедитесь, что установлены все зависимости:")
-        print("   pip install -r requirements.txt")
+        print("\nПопробуйте переустановить зависимости:")
+        print("pip install python-chess stockfish selenium")
