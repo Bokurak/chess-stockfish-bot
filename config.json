@@ -1,0 +1,25 @@
+{
+  "stockfish": {
+    "elo": 3200,
+    "depth": 20,
+    "time_limit_ms": 2000,
+    "threads": 4
+  },
+  "chess_com": {
+    "url": "https://www.chess.com",
+    "browser": "chromium",
+    "headless": false
+  },
+  "game": {
+    "max_moves": 200,
+    "auto_play": true,
+    "log_level": "INFO"
+  },
+  "features": {
+    "detect_brilliant_moves": true,
+    "detect_wonderful_moves": true,
+    "auto_accept_draws": false,
+    "resign_when_lost": true,
+    "loss_threshold_eval": -3000
+  }
+}

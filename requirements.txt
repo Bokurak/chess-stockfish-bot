@@ -1,0 +1,4 @@
+stockfish==15.1
+python-chess==1.10.0
+selenium==4.15.2
+pillow==10.0.0
