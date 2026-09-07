@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Шахматный бот с Stockfish для Chess.com
-Автоматически играет с максимальным уровнем сложности
+Автоматически анализирует позиции и рекомендует лучшие ходы
 """
 
 import time
@@ -14,13 +14,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class ChessStockfishBot:
-    def __init__(self, elo=3200, time_limit=2000):
+    def __init__(self, time_limit=2000):
         """
         Инициализация бота
-        :param elo: Уровень Stockfish (3200 = максимум)
         :param time_limit: Время на ход в миллисекундах
         """
-        self.elo = elo
         self.time_limit = time_limit
         self.board = chess.Board()
         
@@ -28,10 +26,9 @@ class ChessStockfishBot:
         try:
             self.stockfish = Stockfish(
                 path="/data/data/com.termux/files/usr/bin/stockfish",
-                elo=elo,
                 depth=20
             )
-            logger.info(f"✅ Stockfish инициализирован (ELO: {elo})")
+            logger.info(f"✅ Stockfish инициализирован (Глубина: 20)")
         except Exception as e:
             logger.error(f"❌ Ошибка инициализации Stockfish: {e}")
             raise
@@ -43,10 +40,9 @@ class ChessStockfishBot:
         logger.info(f"📍 Позиция: {self.board.fen()}")
         return self.board.fen()
 
-    def get_best_move(self, depth=20, time_ms=None):
+    def get_best_move(self, time_ms=None):
         """
         Получить лучший ход от Stockfish
-        :param depth: Глубина анализа
         :param time_ms: Время на расчет в мс
         :return: Лучший ход
         """
@@ -61,10 +57,8 @@ class ChessStockfishBot:
                 logger.info(f"🎯 Лучший ход: {best_move} (время: {time_ms}ms)")
                 
                 evaluation = self.stockfish.get_evaluation()
-                if evaluation and evaluation.get('value', 0) > 300:
-                    logger.info("⭐ БЛЕСТЯЩИЙ ХОД! Evaluation: " + str(evaluation))
-                elif evaluation and evaluation.get('value', 0) > 150:
-                    logger.info("✨ ЗАМЕЧАТЕЛЬНЫЙ ХОД! Evaluation: " + str(evaluation))
+                if evaluation:
+                    logger.info(f"   Evaluation: {evaluation}")
                 
                 return best_move
             else:
@@ -101,7 +95,7 @@ def main():
     print("="*60)
     print()
     
-    bot = ChessStockfishBot(elo=3200, time_limit=2000)
+    bot = ChessStockfishBot(time_limit=2000)
     
     print("Выберите действие:")
     print("1. Анализировать стартовую позицию")
